@@ -34,7 +34,7 @@ namespace ExmoApiX.AuthenticatedAPIRequests
         /// </param>
         public Order_Create(User user, string pair, double quantity, double price, string type)
         {
-            Dictionary<string, string> req = new Dictionary<string, string>
+            Dictionary<string, string> parameters = new Dictionary<string, string>
                 { { "pair",  pair}, { "quantity", quantity.ToString().Replace(",", ".") },
                 { "price", price.ToString().Replace(",", ".")}, {"type", type.ToString() } };
             JObject jObject = (JObject)ExmoAPI.GetJSONObject("order_create", parameters, user);
