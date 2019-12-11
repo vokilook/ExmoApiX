@@ -39,7 +39,8 @@ namespace ExmoApiX.Examples
             var Orders = new User_Open_Orders(user);
             foreach (KeyValuePair<string, List<Order>> pair in Orders.userOpenOrders)
                 foreach (Order order in pair.Value)
-                    Console.WriteLine(pair.Key + " " + order.order_id + " " + order.quantity);
+                    Console.WriteLine(pair.Key + " " + order.order_id + " " + order.quantity +
+                        " " + order.date);
             Console.WriteLine($"--------Request status {Orders.RequestSucceed}. " +
                 $"{Orders.RequestError}.");
         }
@@ -71,7 +72,7 @@ namespace ExmoApiX.Examples
             foreach (KeyValuePair<string, List<Order>> pair in trades.userTrades)
                 foreach (Order order in pair.Value)
                     Console.WriteLine(order.order_id + " " + order.pair + " " 
-                        + order.type + " " + order.quantity);
+                        + order.type + " " + order.quantity + " " + order.date);
             Console.WriteLine($"--------Request status {trades.RequestSucceed}. " +
                 $"{trades.RequestError}.");
         }
@@ -80,7 +81,8 @@ namespace ExmoApiX.Examples
             Console.WriteLine("--------------------API command \"user_cancelled_orders\":");
             var cancelledOrders = new User_Cancelled_Orders(user, 5, 0);
             foreach (Order order in cancelledOrders.userCancelledOrders)
-                Console.WriteLine(order.order_id + " " + order.pair + " " + order.quantity);
+                Console.WriteLine(order.order_id + " " + order.pair + " " + order.quantity + 
+                    " " + order.date);
             Console.WriteLine($"--------Request status {cancelledOrders.RequestSucceed}. " +
                 $"{cancelledOrders.RequestError}.");
         }
