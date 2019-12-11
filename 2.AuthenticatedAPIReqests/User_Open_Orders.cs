@@ -8,6 +8,7 @@ namespace ExmoApiX.AuthenticatedAPIRequests
 {
     /// <summary>
     /// Request of the list of user’s active orders.
+    /// https://exmo.me/ru/api#/authenticated_api
     /// </summary>
     class User_Open_Orders : Request
     {
@@ -36,7 +37,8 @@ namespace ExmoApiX.AuthenticatedAPIRequests
                 try
                 {
                     List<Order> ordersList = 
-                        JsonConvert.DeserializeObject<List<Order>>(pair.Value.ToString());
+                        JsonConvert.DeserializeObject<List<Order>>(pair.Value.ToString(), 
+                        new JsonSerializerSettings { ContractResolver = OrderDataContractResolver.Instance });
                     userOpenOrders.Add(pair.Key, ordersList);
                 }
                 catch (Exception ex)
