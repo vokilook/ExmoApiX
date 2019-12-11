@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ExmoApiX.Communications;
 
@@ -56,24 +57,25 @@ namespace ExmoApiX.AuthenticatedAPIRequests
     /// <summary>
     /// Common structure with standard order (deal) information.
     /// </summary>
-    public struct Order
+    public class Order
     {
         /// <summary>
         /// date and time of order creation.
         /// </summary>
-        public long date { get; set; }
+        [JsonConverter(typeof(UnixTimeToDatetimeConverter))]
+        public DateTime date { get; set; } = DateTime.MinValue;
         /// <summary>
         ///  order identifier.
         /// </summary>
-        public string order_id { get; set; }
+        public string order_id { get; set; } = "";
         /// <summary>
         ///  order type.
         /// </summary>
-        public string type { get; set; }
+        public string type { get; set; } = "";
         /// <summary>
         ///  currency pair.
         /// </summary>
-        public string pair { get; set; }
+        public string pair { get; set; } = "";
         /// <summary>
         ///  price in the order.
         /// </summary>
@@ -86,18 +88,13 @@ namespace ExmoApiX.AuthenticatedAPIRequests
         ///  sum of the order.
         /// </summary>
         public double amount { get; set; }
+
         /// <summary>
         ///  Constructor for error message creation.
         /// </summary>
         public Order(string error_message)
         {
             order_id = error_message;
-            date = 0;
-            type = "";
-            pair = "";
-            price = 0;
-            quantity = 0;
-            amount = 0;
         }
     }
     /// <summary>
