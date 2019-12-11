@@ -37,7 +37,7 @@ namespace ExmoApiX.AuthenticatedAPIRequests
             Dictionary<string, string> req = new Dictionary<string, string>
                 { { "pair",  pair}, { "quantity", quantity.ToString().Replace(",", ".") },
                 { "price", price.ToString().Replace(",", ".")}, {"type", type.ToString() } };
-            JObject jObject = (JObject)ExmoAPI.GetJSONObject("order_create", req, user);
+            JObject jObject = (JObject)ExmoAPI.GetJSONObject("order_create", parameters, user);
             if (jObject.ContainsKey("result"))
                 RequestSucceed = Convert.ToBoolean(jObject["result"]);
             else
