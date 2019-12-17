@@ -20,18 +20,7 @@ namespace ExmoApiX.PublicAPIRequests
         /// </summary>
         public Currency()
         {
-            JToken jArray = new JArray();
-            try
-            {
-                jArray = (JArray)ExmoAPI.GetJSONObject("currency/");
-            }
-            catch (Exception ex)
-            {
-                currencies.Add(ex.Message);
-                RequestSucceed = false;
-                RequestError = ex.Message;
-                return;
-            }
+            JToken jArray = ExmoAPI.GetJSONObject("currency");
             if (jArray is JArray)
                 currencies = jArray.ToObject<List<string>>();
             else
@@ -43,7 +32,7 @@ namespace ExmoApiX.PublicAPIRequests
                     RequestSucceed = false;
                 if (jObject.ContainsKey("error"))
                     RequestError = jObject["error"].ToString();
-                foreach (var item in jObject)
+                foreach (KeyValuePair<string, JToken> item in jObject)
                     currencies.Add(item.ToString());
             }
 
