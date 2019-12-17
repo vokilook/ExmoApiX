@@ -26,7 +26,6 @@ namespace ExmoApiX.Communications
         public static JToken GetJSONObject(string command,
             IDictionary<string, string> parameters = null, User user = null)
         {
-            JObject jObject = new JObject();
             string answer;
             try
             {
@@ -34,29 +33,16 @@ namespace ExmoApiX.Communications
             }
             catch (Exception ex)
             {
-                jObject.Add("result", false);
-                jObject.Add("error", ex.Message);
-                return jObject;
+                return new JObject { { "result", false }, { "error", ex.Message } };
             }
             try
             {
-                if (answer[0] == '[')
-                {
-                    JArray jArray = new JArray();
-                    jArray = JArray.Parse(answer);
-                    return jArray;
-                }
-                else
-                {
-                    jObject = JObject.Parse(answer);
-                }
+                return JToken.Parse(answer);
             }
             catch (Exception ex)
             {
-                jObject.Add("result", false);
-                jObject.Add("error", ex.Message);
+                return new JObject { { "result", false }, { "error", ex.Message } };
             };
-            return jObject;
         }
         public static string GetString(string command,
             IDictionary<string, string> parameters = null, User user = null)
